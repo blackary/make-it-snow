@@ -13,3 +13,7 @@ ipython_config.py
 .envrc
 .direnv/
 .mypy_cache/
+
+.DS_Store
+
+output.pptx

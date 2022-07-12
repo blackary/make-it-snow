@@ -1,8 +1,11 @@
-from cgitb import lookup
 from collections import defaultdict
+from datetime import date
+from pathlib import Path
 from typing import DefaultDict, Dict
 
 import streamlit as st
+
+from ppt import populate_slide
 
 st.title(":snowflake: Fresh Snow!")
 
@@ -118,4 +121,15 @@ if uploaded_file is not None:
 
     users = df[df["hire_week"] == hire_week]
 
-    st.json(dict(map_users_to_buckets(users)))
+    buckets = map_users_to_buckets(users)
+
+    st.json(dict(buckets))
+
+    populate_slide(buckets, hire_week.start_time)
+
+    # Add a streamlit download button to download output.pptx
+    st.download_button(
+        "Download output.pptx",
+        data=Path("output.pptx").read_bytes(),
+        file_name=f"fresh-snow-{hire_week.start_time:%Y-%m-%d}.pptx",
+    )

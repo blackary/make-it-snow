@@ -22,15 +22,27 @@ BUCKETS = [
     "EASTERN_NA",
     "EUROPE",
     "INDIA",
-    "SOUTHEAST_ASIA",
-    "EAST_ASIA",
-    "AUSTRALIA",
+    "AUSTRALIA_WEST",
+    "AUSTRALIA_EAST",
+    "NEW_ZEALAND",
+    "INDONESIA",
+    "PHILIPPINES",
+    "SINGAPORE_MALAYSIA",
+    "JAPAN_SOUTH_KOREA",
+    "ISRAEL",
+    "UAE",
 ]
 
 
 def get_bucket(user: pd.Series) -> str:
-    if user.Country in ["India", "United Arab Emirates"]:
+    if user.Country == "India":
         return "INDIA"
+
+    elif user.Country == "United Arab Emirates":
+        return "UAE"
+
+    elif user.Country == "Israel":
+        return "ISRAEL"
 
     elif user.Country in ["United States of America", "Canada"]:
         if user.Country == "United States of America":
@@ -38,35 +50,70 @@ def get_bucket(user: pd.Series) -> str:
         else:
             country = "CAN"
 
-        state = user.Location.split("-")[1]
+        state = user.Location.split("-")[1].replace(" Metro", "")
         # Find matching row in dataframe
-        try:
-            timezone = state_timezeones.query(
-                f"STATE == '{state}' & COUNTRY == '{country}'"
-            ).TZ.values[0]
-        except LookupError:
-            return "EASTERN_NA"
+        if country == "CAN":
+            if state in ["British Columbia"]:
+                return "WESTERN_NA"
+            else:
+                return "EASTERN_NA"
 
-        if timezone == "PST":
-            return "WESTERN_NA"
+        elif country == "USA":
+            if state in ["WA", "OR", "CA", "ID", "NV", "UT", "AZ", "MT", "WY"]:
+                return "WESTERN_NA"
+            elif state in [
+                "CO",
+                "NM",
+                "TX",
+                "OK",
+                "KS",
+                "SD",
+                "ND",
+                "MN",
+                "IA",
+                "MO",
+                "AR",
+                "LA",
+            ]:
+                return "CENTRAL_NA"
+            elif state in [
+                "WI",
+                "IL",
+                "MS",
+                "AL",
+                "GA",
+                "T",
+                "KY",
+                "IN",
+                "MI",
+                "OH",
+                "TN",
+                "WV",
+                "FL",
+                "SC",
+                "NC",
+                "VA",
+                "DE",
+                "MD",
+                "PA",
+                "NY",
+                "NJ",
+                "CT",
+                "MA",
+                "VT",
+                "NH",
+                "ME",
+                "NB",
+                "NS",
+                "DC",
+            ]:
+                return "EASTERN_NA"
 
-        if state in ["UT", "MT"]:
-            return "WESTERN_NA"
-
-        if state in ["TX", "CO"]:
-            return "CENTRAL_NA"
-
-        if timezone in ["EST", "CST"]:
-            return "EASTERN_NA"
-
-        if timezone in "MST":
-            return "CENTRAL_NA"
-
-    elif user.Country in ["Mexico"]:
+    elif user.Country == "Mexico":
         return "CENTRAL_NA"
 
     elif user.Country in ["Japan", "Korea, Republic of", "China"]:
-        return "EAST_ASIA"
+        return "JAPAN_SOUTH_KOREA"
 
     elif user.Country in [
         "United Kingdom",
@@ -84,17 +131,44 @@ def get_bucket(user: pd.Series) -> str:
     ]:
         return "EUROPE"
 
-    elif user.Country in ["Indonesia", "Singapore", "Philippines"]:
-        return "SOUTHEAST_ASIA"
+    elif user.Country == "Indonesia":
+        return "INDONESIA"
 
-    elif user.Country in ["Australia", "New Zealand"]:
-        return "AUSTRALIA"
+    elif user.Country in ["New Zealand"]:
+        return "NEW_ZEALAND"
+
+    elif user.Country in ["Singapore", "Malaysia"]:
+        return "SINGAPORE_MALAYSIA"
+
+    elif user.Country in ["Japan", "Korea, Republic of"]:
+        return "JAPAN_SOUTH_KOREA"
+
+    elif user.Country == "Philippines":
+        return "PHILIPPINES"
+
+    elif user.Country in ["Australia"]:
+        city = user.Location.split("-")[1]
+        if city in [
+            "Sydney",
+            "Melbourne",
+            "Brisbane",
+            "Adelaide",
+            "Victoria",
+            "New South Wales",
+            "Queensland",
+        ]:
+            return "AUSTRALIA_EAST"
+        elif city in ["Perth"]:
+            return "AUSTRALIA_WEST"
 
     raise LookupError(user)
 
 
 def map_users_to_buckets(users: pd.DataFrame) -> Dict[str, int]:
-    counts: DefaultDict[str, int] = defaultdict(int)
+    counts: Dict[str, int] = {}
+    for bucket in BUCKETS:
+        counts[bucket] = 0
+
     for row in users.itertuples():
         try:
             bucket = get_bucket(row)

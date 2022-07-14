@@ -1,7 +1,5 @@
-from collections import defaultdict
-from datetime import date
 from pathlib import Path
-from typing import DefaultDict, Dict
+from typing import Dict
 
 import streamlit as st
 

@@ -43,7 +43,7 @@ EASTERN_NA = shapes[13]
 
 INDIA = shapes[15]
 
-ISRAEL = shapes[17]
+ISRAEL = shapes[25]
 
 PHILIPPINES = shapes[19]
 
@@ -53,7 +53,7 @@ AUSTRALIA_WEST = shapes[23]
 
 INDONESIA = list(shapes[26].shapes)[1]
 
-UAE = shapes[25]
+UAE = shapes[17]
 
 
 def edit_text(shape: Shape, new_text: Any):

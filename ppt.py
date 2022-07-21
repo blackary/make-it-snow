@@ -2,10 +2,9 @@ from datetime import date
 from typing import Any, Dict
 
 from pptx import Presentation
+from pptx.oxml.shapes.groupshape import CT_GroupShape
 from pptx.shapes.autoshape import Shape
 from pptx.slide import Slide
-
-ppt = Presentation("template.pptx")
 
 
 def describe_slide(slide: Slide):
@@ -21,49 +20,65 @@ def describe_slide(slide: Slide):
                     print("\t\t\t", shape2.text)
 
 
-slide = ppt.slides[0]
-
-shapes = list(slide.shapes)
-
-DATE = shapes[9]
-
-WESTERN_NA = list(shapes[3].shapes)[1]
-
-EUROPE = list(shapes[5].shapes)[1]
-
-AUSTRALIA_EAST = list(shapes[6].shapes)[1]
-
-SINGAPORE = list(shapes[7].shapes)[1]
-
-CENTRAL_NA = list(shapes[8].shapes)[1]
-
-JAPAN = shapes[11]
-
-EASTERN_NA = shapes[13]
-
-INDIA = shapes[15]
-
-ISRAEL = shapes[25]
-
-PHILIPPINES = shapes[19]
-
-NEW_ZEALAND = shapes[21]
-
-AUSTRALIA_WEST = shapes[23]
-
-INDONESIA = list(shapes[26].shapes)[1]
-
-UAE = shapes[17]
-
-
 def edit_text(shape: Shape, new_text: Any):
+    # If the text is 0, remove the parent shape
+    if str(new_text) == "0":
+        parent = shape._element.getparent()
+        grandparent = parent.getparent()
+
+        if type(grandparent) == CT_GroupShape:
+            grandparent.remove(parent)
+        else:
+            parent.remove(shape._element)
+        return
+
     runs = shape.text_frame.paragraphs[0].runs
+
     for run in runs:
         run.text = ""
-    runs[0].text = str(new_text)
+    to_add = str(new_text)
+    if len(to_add) == 1:
+        to_add = " " + to_add
+    runs[0].text = str(to_add)
 
 
 def populate_slide(buckets: Dict[str, int], date: date):
+    ppt = Presentation("template.pptx")
+
+    slide = ppt.slides[0]
+
+    shapes = list(slide.shapes)
+
+    DATE = shapes[9]
+
+    WESTERN_NA = list(shapes[3].shapes)[1]
+
+    EUROPE = list(shapes[5].shapes)[1]
+
+    AUSTRALIA_EAST = list(shapes[6].shapes)[1]
+
+    SINGAPORE = list(shapes[7].shapes)[1]
+
+    CENTRAL_NA = list(shapes[8].shapes)[1]
+
+    EASTERN_NA = list(shapes[10].shapes)[1]
+
+    ISRAEL = list(shapes[11].shapes)[1]
+
+    INDIA = list(shapes[12].shapes)[1]
+
+    JAPAN = list(shapes[13].shapes)[1]
+
+    PHILIPPINES = list(shapes[14].shapes)[1]
+
+    INDONESIA = list(shapes[15].shapes)[1]
+
+    AUSTRALIA_WEST = list(shapes[16].shapes)[1]
+
+    NEW_ZEALAND = list(shapes[17].shapes)[1]
+
+    UAE = list(shapes[18].shapes)[1]
+
     date_str = date.strftime("%B %d, %Y")
 
     edit_text(DATE, date_str)

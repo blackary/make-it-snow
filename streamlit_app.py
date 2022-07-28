@@ -12,8 +12,6 @@ st.write("Upload a spreadsheet of recent hires, and select the week")
 import pandas as pd
 import streamlit as st
 
-state_timezeones = pd.read_csv("state_tz.csv")
-
 BUCKETS = [
     "WESTERN_NA",
     "CENTRAL_NA",
@@ -80,7 +78,6 @@ def get_bucket(user: pd.Series) -> str:
                 "MS",
                 "AL",
                 "GA",
-                "T",
                 "KY",
                 "IN",
                 "MI",
@@ -178,12 +175,22 @@ def map_users_to_buckets(users: pd.DataFrame) -> Dict[str, int]:
 
 
 uploaded_file = st.file_uploader("Upload an excel spreadsheet", type="xlsx")
+
+use_sample = st.checkbox("Use sample data", help="Use example set of fake data")
+
+df = None
+
 if uploaded_file is not None:
     # read csv
     df = pd.read_excel(
         uploaded_file, usecols=["Location", "Country", "Hire Date"], header=3
     )
+elif use_sample:
+    df = pd.read_csv("example.csv")
+    df["Hire Date"] = pd.to_datetime(df["Hire Date"])
 
+
+if df is not None:
     st.expander("Show all data").write(df)
 
     # Add column for start of week

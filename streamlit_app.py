@@ -1,6 +1,7 @@
 from pathlib import Path
 from typing import Dict
 
+import pandas as pd
 import streamlit as st
 
 from ppt import populate_slide
@@ -9,8 +10,6 @@ st.title(":snowflake: Fresh Snow!")
 
 st.write("Upload a spreadsheet of recent hires, and select the week")
 
-import pandas as pd
-import streamlit as st
 
 BUCKETS = [
     "WESTERN_NA",
@@ -27,6 +26,7 @@ BUCKETS = [
     "JAPAN_SOUTH_KOREA",
     "ISRAEL",
     "UAE",
+    "BRAZIL",
 ]
 
 
@@ -155,6 +155,9 @@ def get_bucket(user: pd.Series) -> str:
             return "AUSTRALIA_EAST"
         elif city in ["Perth"]:
             return "AUSTRALIA_WEST"
+
+    elif user.Country == "Brazil":
+        return "BRAZIL"
 
     raise LookupError(user)
 

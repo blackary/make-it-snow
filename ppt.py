@@ -79,6 +79,8 @@ def populate_slide(buckets: Dict[str, int], date: date):
 
     UAE = list(shapes[18].shapes)[1]
 
+    BRAZIL = list(shapes[19].shapes)[1]
+
     date_str = date.strftime("%B %d, %Y")
 
     edit_text(DATE, date_str)
@@ -110,6 +112,8 @@ def populate_slide(buckets: Dict[str, int], date: date):
     edit_text(SINGAPORE, buckets.pop("SINGAPORE_MALAYSIA"))
 
     edit_text(JAPAN, buckets.pop("JAPAN_SOUTH_KOREA"))
+
+    edit_text(BRAZIL, buckets.pop("BRAZIL"))
 
     assert not buckets, buckets
 

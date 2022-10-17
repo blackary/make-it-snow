@@ -123,6 +123,7 @@ def get_bucket(user: pd.Series) -> str:
         "Slovakia",
         "Denmark",
         "Ireland",
+        "Finland",
     ]:
         return "EUROPE"
 

@@ -43,7 +43,7 @@ def edit_text(shape: Shape, new_text: Any):
 
 
 def populate_slide(buckets: Dict[str, int], date: date):
-    ppt = Presentation("template-CR.pptx")
+    ppt = Presentation("template.pptx")
 
     slide = ppt.slides[0]
 

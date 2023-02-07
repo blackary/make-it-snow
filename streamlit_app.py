@@ -6,6 +6,8 @@ import streamlit as st
 
 from ppt import populate_slide
 
+st.set_page_config(page_title="Fresh Snow", page_icon="❄️")
+
 st.title(":snowflake: Fresh Snow!")
 
 st.write("Upload a spreadsheet of recent hires, and select the week")

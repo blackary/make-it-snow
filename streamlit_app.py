@@ -27,6 +27,7 @@ BUCKETS = [
     "ISRAEL",
     "UAE",
     "BRAZIL",
+    "COSTA_RICA",
 ]
 
 
@@ -152,6 +153,7 @@ def get_bucket(user: pd.Series) -> str:
             "Victoria",
             "New South Wales",
             "Queensland",
+            "Canberra",
         ]:
             return "AUSTRALIA_EAST"
         elif city in ["Perth"]:
@@ -159,6 +161,9 @@ def get_bucket(user: pd.Series) -> str:
 
     elif user.Country == "Brazil":
         return "BRAZIL"
+
+    elif user.Country in ["Colombia", "Costa Rica"]:
+        return "COSTA_RICA"
 
     raise LookupError(user)
 

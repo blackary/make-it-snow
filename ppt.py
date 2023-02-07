@@ -43,7 +43,7 @@ def edit_text(shape: Shape, new_text: Any):
 
 
 def populate_slide(buckets: Dict[str, int], date: date):
-    ppt = Presentation("template.pptx")
+    ppt = Presentation("template-CR.pptx")
 
     slide = ppt.slides[0]
 
@@ -81,6 +81,8 @@ def populate_slide(buckets: Dict[str, int], date: date):
 
     BRAZIL = list(shapes[19].shapes)[1]
 
+    COSTA_RICA = list(shapes[20].shapes)[1]
+
     date_str = date.strftime("%B %d, %Y")
 
     edit_text(DATE, date_str)
@@ -114,6 +116,8 @@ def populate_slide(buckets: Dict[str, int], date: date):
     edit_text(JAPAN, buckets.pop("JAPAN_SOUTH_KOREA"))
 
     edit_text(BRAZIL, buckets.pop("BRAZIL"))
+
+    edit_text(COSTA_RICA, buckets.pop("COSTA_RICA"))
 
     assert not buckets, buckets
 

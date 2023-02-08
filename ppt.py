@@ -7,7 +7,7 @@ from pptx.shapes.autoshape import Shape
 from pptx.slide import Slide
 
 
-def describe_slide(slide: Slide):
+def describe_slide(slide: Slide) -> None:
     for idx, shape in enumerate(slide.shapes):
         print(idx, shape)
         if hasattr(shape, "text"):
@@ -20,7 +20,7 @@ def describe_slide(slide: Slide):
                     print("\t\t\t", shape2.text)
 
 
-def edit_text(shape: Shape, new_text: Any):
+def edit_text(shape: Shape, new_text: Any) -> None:
     # If the text is 0, remove the parent shape
     if str(new_text) == "0":
         parent = shape._element.getparent()

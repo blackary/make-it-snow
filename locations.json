@@ -1,0 +1,29 @@
+[
+  { "name": "DATE", "left": 6591296, "top": 9390513, "nested": false },
+  { "name": "WESTERN_NA", "left": 1800537, "top": 2212898, "nested": true },
+  { "name": "EUROPE", "left": 5431293, "top": 1850076, "nested": true },
+  { "name": "AUSTRALIA_EAST", "left": 9822234, "top": 5239466, "nested": true },
+  {
+    "name": "SINGAPORE_MALAYSIA",
+    "left": 8507663,
+    "top": 3866601,
+    "nested": true
+  },
+  { "name": "CENTRAL_NA", "left": 2366200, "top": 2514627, "nested": true },
+  { "name": "EASTERN_NA", "left": 3232250, "top": 2394777, "nested": true },
+  { "name": "ISRAEL", "left": 6358188, "top": 2713527, "nested": true },
+  { "name": "INDIA", "left": 7778988, "top": 3376552, "nested": true },
+  {
+    "name": "JAPAN_SOUTH_KOREA",
+    "left": 9579888,
+    "top": 2490827,
+    "nested": true
+  },
+  { "name": "PHILIPPINES", "left": 9122013, "top": 3431177, "nested": true },
+  { "name": "INDONESIA", "left": 9752000, "top": 4087852, "nested": true },
+  { "name": "AUSTRALIA_WEST", "left": 8960138, "top": 5032552, "nested": true },
+  { "name": "NEW_ZEALAND", "left": 10649813, "top": 5239477, "nested": true },
+  { "name": "UAE", "left": 7135438, "top": 2860052, "nested": true },
+  { "name": "BRAZIL", "left": 3807313, "top": 4292802, "nested": true },
+  { "name": "COSTA_RICA", "left": 3024863, "top": 3656977, "nested": true }
+]

@@ -4,33 +4,13 @@ from typing import Dict
 import pandas as pd
 import streamlit as st
 
-from ppt import populate_slide
+from ppt import populate_slide, BUCKETS
 
 st.set_page_config(page_title="Fresh Snow", page_icon="❄️")
 
 st.title(":snowflake: Fresh Snow!")
 
 st.write("Upload a spreadsheet of recent hires, and select the week")
-
-
-BUCKETS = [
-    "WESTERN_NA",
-    "CENTRAL_NA",
-    "EASTERN_NA",
-    "EUROPE",
-    "INDIA",
-    "AUSTRALIA_WEST",
-    "AUSTRALIA_EAST",
-    "NEW_ZEALAND",
-    "INDONESIA",
-    "PHILIPPINES",
-    "SINGAPORE_MALAYSIA",
-    "JAPAN_SOUTH_KOREA",
-    "ISRAEL",
-    "UAE",
-    "BRAZIL",
-    "COSTA_RICA",
-]
 
 
 def get_bucket(user: pd.Series) -> str:

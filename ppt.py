@@ -47,9 +47,6 @@ def edit_text(shape: Shape, new_text: Any) -> None:
     if str(new_text) == "0":
         parent = shape._element.getparent()
         grandparent = parent.getparent()
-        print(type(grandparent))
-        print(type(parent))
-        print(type(shape._element))
 
         if isinstance(grandparent, GroupShape) or isinstance(
             grandparent, CT_GroupShape
@@ -116,7 +113,7 @@ def populate_slide(buckets: Dict[str, int], date: date):
 
     DATE = get_shape_by_text("AUGUST 24, 2023", shapes)
     date_str = date.strftime("%B %d, %Y")
-    edit_text(DATE, date_str)
+    edit_text(DATE, date_str)i
 
     for shape, bucket in zip(grouped_shapes, BUCKETS):
         shape = move_shape(bucket, shape)
